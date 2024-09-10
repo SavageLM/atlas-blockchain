@@ -37,4 +37,4 @@ versign:
 	$(CC) $(CFLAGS) -o ec_verify-test $(VERSIGN) $(PROV) $(LLIBS)
 
 libhblk_crypto.a:
-	$(CC) -c $(CFLAGS) *.c; ar -rc libhblk.a *.o
+	$(CC) -c $(CFLAGS) *.c; ar -rc libhblk_crypto.a *.o
