@@ -1,11 +1,5 @@
 #include "hblk_crypto.h"
 
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-
-
 /**
  * ec_save - saves a ec_key pair to a folder
  * @key: key to save
