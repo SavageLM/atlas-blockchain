@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pedantic -Wno-deprecated-declarations -g
+CFLAGS = -Wall -Wextra -Werror -pedantic -Wno-deprecated-declarations -g -I.
 LLIBS = -lssl -lcrypto
 PROV = provided/_print_hex_buffer.c
 HASH = sha256.c test/sha256-main.c
