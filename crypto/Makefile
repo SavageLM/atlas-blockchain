@@ -4,10 +4,10 @@ LLIBS = -lssl -lcrypto
 PROV = provided/_print_hex_buffer.c
 HASH = sha256.c test/sha256-main.c
 CREATE = ec_create.c test/ec_create-main.c
-TOPUB = ec_to_pub.c test/ec_to_pub-main.c
-FROMPUB = ec_from_pub.c test/ec_from_pub-main.c
-KEYSAVE = ec_save.c test/ec_save-main.c
-KEYLOAD = ec_load.c test/ec_load-main.c
+TOPUB = ec_to_pub.c ec_create.c test/ec_to_pub-main.c
+FROMPUB = ec_from_pub.c ec_create.c test/ec_from_pub-main.c
+KEYSAVE = ec_save.c ec_create.c test/ec_save-main.c
+KEYLOAD = ec_load.c ec_create.c test/ec_load-main.c
 SIGN = ec_sign.c test/ec_sign-main.c
 VERSIGN = ec_verify.c test/ec_verify-main.c
 
