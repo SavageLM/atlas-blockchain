@@ -1,7 +1,7 @@
-##**Project**'Blockchain - Crypto'
+##**Project**'Blockchain'
 
 ## Introduction
-> This README is for the Blockchain - Crypto project at Atlas.
+> This README is for the Blockchain course at Atlas.
 
 ### Requirements
 - Allowed editors: vi, vim, emacs
@@ -18,16 +18,8 @@
 | **File** | *__Description__* |
 |----------|----------------:|
 |Dockerfile| File for spinning up a docker container with all needed libraries|
-|crypto/Makefile| Makefile for building and compiling libraries and functions|
-|cyrpto/hblk_crypto.h| Header file for Programs|
-|crypto/sha256.c| Function for hashing a series of bytes|
-|crypto/ec_create.c| Function for creating a new EC_KEY pair|
-|crypto/ec_to_pub.c| Function for extracting a public key from an EC_KEY opaque structure|
-|crypto/ec_from_pub.c| Function for creating an EC_KEY structure from a public key|
-|crypto/ec_save.c| Function for saving an EC_KEY pair to disk|
-|crypto/ec_load.c| Function for loading an EC_KEY pair from disk|
-|crypto/ec_sign.c| Function for signing a set of bytes, using an EC_KEY private key|
-|crypto/ec_verify.c| Function for verifing the signature of a set of bytes, using an EC_KEY public key|
+|/blockchain| Directory containg files and code for Blockchain Data structs project|
+|/crypto| Directory containing files and code for Blockchain Crypto project|
 
 #### Authors
 Logan Savage

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "ecdsa.h": "c",
+        "ec.h": "c"
+    }
+}
