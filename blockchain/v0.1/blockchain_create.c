@@ -1,4 +1,4 @@
-#include "blockChain.h"
+#include "blockchain.h"
 
 /**
  * blockchain_create - Creates a new blockchain
@@ -24,6 +24,6 @@ blockchain_t *blockchain_create(void)
 	memcpy(new_block->hash, HOLBERTON_HASH, SHA256_DIGEST_LENGTH);
 
 	if (llist_add_node(new_chain->chain, new_block, ADD_NODE_REAR) == -1)
-		return (llist_destroy(new_chain->chain, 0, NULL), free(new_chain),NULL);
+		return (llist_destroy(new_chain->chain, 0, NULL), free(new_chain), NULL);
 	return (new_chain);
 }
