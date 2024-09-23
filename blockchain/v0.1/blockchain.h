@@ -1,14 +1,16 @@
 #ifndef _BLOCKCHAIN_H_
 #define _BLOCKCHAIN_H_
 
+#include "provided/endianness.h"
+#include <openssl/sha.h>
+#include <llist.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
 #include <time.h>
-#include <openssl/sha.h>
-#include "provided/endianness.h"
-#include <llist.h>
 
 /* Macros */
 
