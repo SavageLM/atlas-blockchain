@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <time.h>
-
+#include <openssl/sha.h>
 #include <llist.h>
 
 /* Macros */
