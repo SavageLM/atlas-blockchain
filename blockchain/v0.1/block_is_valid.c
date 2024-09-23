@@ -6,7 +6,7 @@ int is_genesis(block_t const *block);
  * block_is_valid - function to validate a block
  * @block: block to validate
  * @prev_block: block before block to validate
- * Return: 1 on Success, 0 on fail
+ * Return: 0 on Success, 1 on fail
  */
 int block_is_valid(block_t const *block, block_t const *prev_block)
 {
@@ -14,10 +14,10 @@ int block_is_valid(block_t const *block, block_t const *prev_block)
 	uint8_t current_hash[SHA256_DIGEST_LENGTH] = {0};
 
 	if (!block)
-		return (0);
+		return (1);
 
 	if (!prev_block && block->info.index != 0)
-		return (0);
+		return (1);
 
 	if (block->info.index == 0)
 	{
@@ -28,22 +28,23 @@ int block_is_valid(block_t const *block, block_t const *prev_block)
 	}
 
 	if (block->info.index != prev_block->info.index + 1)
-		return (0);
+		return (1);
 
 	block_hash(prev_block, prev_hash);
 	if (memcmp(prev_hash, prev_block->hash, 32))
-		return (0);
+		return (1);
 
 	if (memcmp(prev_block->hash, block->info.prev_hash, 32))
-		return (0);
+		return (1);
 
 	block_hash(block, current_hash);
 	if (memcmp(current_hash, block->hash, 32))
-		return (0);
+		return (1);
 
 	if (block->data.len > BLOCKCHAIN_DATA_MAX)
 		return (0);
-	return (1);
+
+	return (0);
 }
 
 /**
@@ -58,5 +59,5 @@ int is_genesis(block_t const *block)
 		{"Holberton School", 16},
 		HOLBERTON_HASH};
 
-	return (memcmp(&genesis, block, 108));
+	return (memcmp(&genesis, block, 1116));
 }
