@@ -45,20 +45,6 @@ typedef struct block_data_s
 } block_data_t;
 
 /**
- * struct block_s - Block structure
- *
- * @info: Block info
- * @data: Block data
- * @hash: 256-bit digest of the Block, to ensure authenticity
- */
-typedef struct block_s
-{
-	block_info_t    info; /* This must stay first */
-	block_data_t    data; /* This must stay second */
-	uint8_t     hash[SHA256_DIGEST_LENGTH];
-} block_t;
-
-/**
  * struct block_info_s - Block info structure
  *
  * @index:      Index of the Block in the Blockchain
@@ -82,6 +68,20 @@ typedef struct block_info_s
 	uint64_t    nonce;
 	uint8_t     prev_hash[SHA256_DIGEST_LENGTH];
 } block_info_t;
+
+/**
+ * struct block_s - Block structure
+ *
+ * @info: Block info
+ * @data: Block data
+ * @hash: 256-bit digest of the Block, to ensure authenticity
+ */
+typedef struct block_s
+{
+	block_info_t    info; /* This must stay first */
+	block_data_t    data; /* This must stay second */
+	uint8_t     hash[SHA256_DIGEST_LENGTH];
+} block_t;
 
 /* Prototypes */
 
