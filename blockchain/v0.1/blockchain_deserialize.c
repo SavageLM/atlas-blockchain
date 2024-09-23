@@ -35,5 +35,6 @@ blockchain_t *blockchain_deserialize(char const *path)
 		fread(&block->hash, sizeof(uint8_t), SHA256_DIGEST_LENGTH, fptr);
 		llist_add_node(blockchain->chain, block, ADD_NODE_REAR);
 	}
+	fclose(fptr);
 	return (blockchain);
 }
