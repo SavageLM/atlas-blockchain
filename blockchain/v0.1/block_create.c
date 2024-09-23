@@ -1,29 +1,34 @@
 #include "blockchain.h"
 
 /**
- * blockchain_create - Creates a new blockchain
- * Return: Pointer to new chain or NULL
+ * block_create - Creates a new block
+ * @prev: Previous block
+ * @data: data to duplicte into block
+ * @data_len: Number of bytes to copy
+ * Return: Pointer to new block or NULL
  */
-blockchain_t *blockchain_create(void)
+block_t *block_create(block_t const *prev, int8_t const *data,
+					  uint32_t data_len)
 {
-	blockchain_t *new_chain = NULL;
 	block_t *new_block = NULL;
-	block_info_t info = {0, 0, 1537578000, 0, {0}};
-	block_data_t data = {"Holberton School", 16};
+	block_info_t info;
+	block_data_t new_data = {{0}, 0};
+	uint32_t len = data_len;
 
-	new_chain = malloc(sizeof(blockchain_t));
-	if (!new_chain)
-		return (NULL);
 	new_block = malloc(sizeof(block_t));
 	if (!new_block)
 		return (NULL);
-	new_chain->chain = llsit_create(MT_SUPPORT_FALSE);
-	if (!new_chain->chain)
-		return (free(new_chain), NULL);
-	new_block->info = info, new_block->data = data;
-	memcpy(new_block->hash, HOLBERTON_HASH, SHA256_DIGEST_LENGTH);
+	if (data_len > BLOCKCHAIN_DATA_MAX)
+		len = BLOCKCHAIN_DATA_MAX;
+	memcpy(new_data.buffer, data, len);
+	new_data.len = len;
 
-	if (llist_add_node(new_chain->chain, new_block, ADD_NODE_REAR) == -1)
-		return (llist_destroy(new_chain->chain, 0, NULL), free(new_chain),NULL);
-	return (new_chain);
+	info.index = prev->info.index + 1;
+	info.difficulty = 0, info.nonce = 0;
+	memcpy(info.prev_hash, prev->hash, 32);
+	info.timestamp = time(NULL);
+
+	memset(new_block->hash, 0, 32);
+	new_block->data = new_data, new_block->info = info;
+	return (new_block);
 }
