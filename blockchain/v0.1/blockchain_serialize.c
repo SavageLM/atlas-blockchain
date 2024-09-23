@@ -22,6 +22,7 @@ int blockchain_serialize(blockchain_t const *blockchain, char const *path)
 	fptr = fopen(path, "w");
 	fwrite(header, 1, 12, fptr);
 	llist_for_each(blockchain->chain, write_blocks, fptr);
+	fclose(fptr);
 	return (1);
 }
 
