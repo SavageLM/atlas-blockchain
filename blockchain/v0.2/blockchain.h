@@ -25,6 +25,13 @@
 #define END ((_get_endianness() == 1) ? "\x01" : "\x02")
 #define FHEADER "\x48\x42\x4c\x4b\x30\x2e\x31"
 
+#define BLOCK_GENERATION_INTERVAL 1
+#define DIFFICULTY_ADJUSTMENT_INTERVAL 5
+
+#define EXPECTED(x, y) \
+	((x->info.index - y->info.index) * BLOCK_GENERATION_INTERVAL)
+#define ACTUAL(x, y) (x->info.timestamp - y->info.timestamp)
+
 
 /* Structs */
 
@@ -109,5 +116,6 @@ int block_is_valid(block_t const *block, block_t const *prev_block);
 int hash_matches_difficulty(uint8_t const hash[SHA256_DIGEST_LENGTH],
 							uint32_t difficulty);
 void block_mine(block_t *block);
+uint32_t blockchain_difficulty(blockchain_t const *blockchain);
 
 #endif
