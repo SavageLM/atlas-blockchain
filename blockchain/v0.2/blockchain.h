@@ -26,7 +26,7 @@
 #define FHEADER "\x48\x42\x4c\x4b\x30\x2e\x31"
 
 #define BLOCK_GENERATION_INTERVAL 1
-#define DIFFICULTY_ADJUSTMENT_INTERVAL 3
+#define DIFFICULTY_ADJUSTMENT_INTERVAL 2
 #define DIFF block->info.difficulty
 #define EXPECTED(x, y) \
 	((x->info.index - y->info.index) * BLOCK_GENERATION_INTERVAL)
