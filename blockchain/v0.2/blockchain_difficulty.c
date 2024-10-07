@@ -23,9 +23,9 @@ uint32_t blockchain_difficulty(blockchain_t const *blockchain)
 		exp_time = EXPECTED(block, adj_block);
 		act_time = ACTUAL(block, adj_block);
 		if (act_time > exp_time << 1)
-			return (DIFF - DIFFICULTY_ADJUSTMENT_INTERVAL);
+			return (DIFF - 1);
 		else if (act_time < exp_time >> 1)
-			return (DIFF + DIFFICULTY_ADJUSTMENT_INTERVAL);
+			return (DIFF + 1);
 		else
 			return (DIFF);
 	}
