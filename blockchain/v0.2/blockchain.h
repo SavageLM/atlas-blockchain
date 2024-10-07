@@ -27,7 +27,7 @@
 
 #define BLOCK_GENERATION_INTERVAL 1
 #define DIFFICULTY_ADJUSTMENT_INTERVAL 5
-
+#define DIFF block->info.difficulty
 #define EXPECTED(x, y) \
 	((x->info.index - y->info.index) * BLOCK_GENERATION_INTERVAL)
 #define ACTUAL(x, y) (x->info.timestamp - y->info.timestamp)
