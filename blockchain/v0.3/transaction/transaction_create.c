@@ -20,7 +20,7 @@ transaction_t *transaction_create(
 	transaction_t *tx;
 	tc_t *context;
 
-	if (!sender || ! receiver || !amount || !all_unspent)
+	if (!sender || !receiver || !amount || !all_unspent)
 		return (NULL);
 	context = calloc(1, sizeof(tc_t));
 	tx = calloc(1, sizeof(transaction_t));
@@ -35,7 +35,7 @@ transaction_t *transaction_create(
 	tx->inputs = llist_create(MT_SUPPORT_FALSE);
 	llist_for_each(all_unspent, find_matches, context);
 	if (context->needed > 0)
-		return(free(tx), NULL);
+		return (free(tx), NULL);
 	tx->outputs = llist_create(MT_SUPPORT_FALSE);
 	if (!send_tx(amount, context, receiver))
 		return (free(tx), NULL);
@@ -49,7 +49,7 @@ transaction_t *transaction_create(
  * find_matches - finds matches in unspent list
  * @unspent: unspent tx
  * @iter: iterator to track index in list
- * @conext: struct holding needed info
+ * @context: struct holding needed info
  * Return: 0 on success, 1 on fail
  */
 int find_matches(llist_node_t unspent, unsigned int iter, void *context)
@@ -102,7 +102,7 @@ int send_tx(uint32_t amount, tc_t *context, EC_KEY const *receiver)
  * sig_ins - signs input tx
  * @tx_in: Transaction inputs list
  * @iter: iterator to track index in list
- * @conext: struct holding needed info
+ * @context: struct holding needed info
  * Return: 0 on success, 1 on fail
  */
 int sig_ins(llist_node_t tx_in, unsigned int iter, void *context)
