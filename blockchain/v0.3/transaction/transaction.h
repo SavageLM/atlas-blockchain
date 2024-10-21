@@ -17,6 +17,8 @@
 #define BLOCKCHAIN_DATA_MAX 1024
 #define BUFF_SIZE ((32 * 3 * ins) + (32 * outs))
 #define PTR_MOVE (sizeof(uint32_t) + EC_PUB_LEN)
+#define UNSPENT ((uto_t *)unspent)
+#define CONTEXT ((tc_t *)context)
 
 
 /* Structs */
@@ -88,6 +90,25 @@ typedef struct unspent_tx_out_s
 	uint8_t     tx_id[SHA256_DIGEST_LENGTH];
 	tx_out_t    out;
 } unspent_tx_out_t, uto_t;
+
+/**
+ * struct tx_balance - Tracks the balance available to a private key
+ * @pub: public key used to match to a private
+ * @balance: total amount available to a key
+ * @needed: amount needed to send
+ * @tx: transaction struct
+ * @sender: senders private key
+ * @all_unspent: list of uto_t
+ */
+typedef struct tx_context_s
+{
+	uint8_t       pub[EC_PUB_LEN];
+	int           balance;
+	int           needed;
+	transaction_t *tx;
+	EC_KEY const  *sender;
+	llist_t       *all_unspent;
+} tc_t;
 
 /* Prototypes */
 
