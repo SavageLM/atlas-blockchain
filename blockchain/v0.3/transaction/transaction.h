@@ -1,5 +1,5 @@
-#ifndef _BLOCKCHAIN_H_
-#define _BLOCKCHAIN_H_
+#ifndef _TRANSACTION_H_
+#define _TRANSACTION_H_
 
 #include "hblk_crypto.h"
 #include <openssl/sha.h>
