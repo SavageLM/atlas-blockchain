@@ -15,6 +15,7 @@
 /* Macros */
 #define COINBASE_AMOUNT 50
 #define BLOCKCHAIN_DATA_MAX 1024
+#define PTR_MOVE (sizeof(uint32_t) + EC_PUB_LEN)
 
 
 /* Structs */

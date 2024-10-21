@@ -57,6 +57,6 @@ int hash_out(llist_node_t output, unsigned int iter, void *buff)
 
 	if (!output)
 		return (1);
-	memcpy(&((uint8_t *)buff)[pos], (uint8_t *)output + 69, 32);
+	memcpy(&((uint8_t *)buff)[pos], (uint8_t *)output + PTR_MOVE, 32);
 	return (0);
 }
