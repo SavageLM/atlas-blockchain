@@ -1,8 +1,7 @@
 #ifndef _BLOCKCHAIN_H_
 #define _BLOCKCHAIN_H_
 
-#include "blockchain.h"
-#include <hblk_crypto.h>
+#include "hblk_crypto.h"
 #include <openssl/sha.h>
 #include <llist.h>
 #include <sys/stat.h>
