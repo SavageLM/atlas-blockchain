@@ -18,5 +18,6 @@ to_t *tx_out_create(uint32_t amount, uint8_t const pub[EC_PUB_LEN])
 		return (NULL);
 	new->amount = amount;
 	memcpy(new->pub, pub, EC_PUB_LEN);
+	SHA256((uint8_t *)new, (EC_PUB_LEN + sizeof(uint32_t)), new->hash);
 	return (new);
 }
