@@ -12,7 +12,7 @@ to_t *tx_out_create(uint32_t amount, uint8_t const pub[EC_PUB_LEN])
 
 	if (!pub || !amount)
 		return (NULL);
-	
+
 	new = calloc(1, sizeof(to_t));
 	if (!new)
 		return (NULL);

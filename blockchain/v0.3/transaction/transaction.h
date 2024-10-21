@@ -1,7 +1,6 @@
 #ifndef _BLOCKCHAIN_H_
 #define _BLOCKCHAIN_H_
 
-#include "provided/endianness.h"
 #include "blockchain.h"
 #include <hblk_crypto.h>
 #include <openssl/sha.h>
