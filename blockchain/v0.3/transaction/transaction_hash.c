@@ -20,10 +20,10 @@ uint8_t *transaction_hash(
 		return (NULL);
 	ins = llist_size(transaction->inputs);
 	outs = llist_size(transaction->outputs);
-	buff = calloc(1, ((32 * 3 * ins) + (32 * outs)));
+	buff = calloc(1, BUFF_SIZE);
 	llist_for_each(transaction->inputs, hash_in, buff);
 	llist_for_each(transaction->outputs, hash_out, &buff[32 * 3 * ins]);
-	SHA256(buff, (ins + outs), hash_buf);
+	SHA256(buff, BUFF_SIZE, hash_buf);
 	return (hash_buf);
 }
 
