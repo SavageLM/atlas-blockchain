@@ -24,6 +24,7 @@ uint8_t *transaction_hash(
 	llist_for_each(transaction->inputs, hash_in, buff);
 	llist_for_each(transaction->outputs, hash_out, &buff[32 * 3 * ins]);
 	SHA256(buff, BUFF_SIZE, hash_buf);
+	free(buff), buff = NULL;
 	return (hash_buf);
 }
 
