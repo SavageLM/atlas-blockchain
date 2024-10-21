@@ -36,6 +36,7 @@ sig_t *tx_in_sign(
  * check_hash - Function to find tx_out match in unspent list
  * @out: tx_out to check
  * @hash: hash to cmp to
+ * Return: 1 on match, else 0
  */
 int check_hash(llist_node_t out, void *hash)
 {
