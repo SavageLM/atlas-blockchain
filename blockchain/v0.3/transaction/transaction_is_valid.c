@@ -78,13 +78,9 @@ int valid_ins(llist_node_t in, unsigned int iter, void *context)
  */
 int check_hash_match(llist_node_t unspent, void *in)
 {
-	if (!unspent)
-		return (0);
-	if (!memcmp(UNSPENT->out.hash, IN_HASH, SHA256_DIGEST_LENGTH))
-		return (1);
-	if (!memcmp(UNSPENT->block_hash, IN_BLOCK, SHA256_DIGEST_LENGTH))
-		return (1);
-	if (!memcmp(UNSPENT->tx_id, IN_ID, SHA256_DIGEST_LENGTH))
+	if (!memcmp(UNSPENT->out.hash, IN_HASH, SHA256_DIGEST_LENGTH) &&
+		!memcmp(UNSPENT->block_hash, IN_BLOCK, SHA256_DIGEST_LENGTH) &&
+		!memcmp(UNSPENT->tx_id, IN_ID, SHA256_DIGEST_LENGTH))
 		return (1);
 	return (0);
 }
