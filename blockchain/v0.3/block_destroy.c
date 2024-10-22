@@ -27,5 +27,6 @@ int tx_free(llist_node_t tx, unsigned int iter, void *args)
 	(void)iter;
 	(void)args;
 	transaction_destroy((transaction_t *)tx);
-	return(0);
+	free(tx);
+	return (0);
 }
