@@ -10,6 +10,7 @@ blockchain_t *blockchain_create(void)
 	block_t *new_block = NULL;
 	block_info_t info = {0, 0, 1537578000, 0, {0}};
 	block_data_t data = {"Holberton School", 16};
+	llist_t *new_unspent;
 
 	new_chain = malloc(sizeof(blockchain_t));
 	if (!new_chain)
@@ -25,5 +26,7 @@ blockchain_t *blockchain_create(void)
 
 	if (llist_add_node(new_chain->chain, new_block, ADD_NODE_REAR) == -1)
 		return (llist_destroy(new_chain->chain, 0, NULL), free(new_chain), NULL);
+	new_unspent = llist_create(MT_SUPPORT_FALSE);
+	new_chain->unspent = new_unspent;
 	return (new_chain);
 }
