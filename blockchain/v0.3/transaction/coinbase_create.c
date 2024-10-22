@@ -14,7 +14,7 @@ transaction_t *coinbase_create(
 	ti_t *in;
 	uint8_t pub[EC_PUB_LEN];
 
-	if (!receiver || !block_index)
+	if (!receiver)
 		return (NULL);
 	new = calloc(1, sizeof(transaction_t));
 	if (!new)
