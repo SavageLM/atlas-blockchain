@@ -22,25 +22,23 @@ int transaction_is_valid(
 	transaction_t const *transaction, llist_t *all_unspent)
 {
 	uint8_t v_hash[SHA256_DIGEST_LENGTH];
-	tc_t *context;
+	tc_t context = {0};
 
 	if (!transaction || !all_unspent)
 		return (0);
-	context = calloc(1, sizeof(tc_t));
-	context->tx = (void *)transaction, context->all_unspent = all_unspent;
+	context.tx = (void *)transaction, context.all_unspent = all_unspent;
 
 	transaction_hash(transaction, v_hash);
 	if (memcmp(v_hash, transaction->id, SHA256_DIGEST_LENGTH))
 		return (0);
 
-	if (llist_for_each(transaction->inputs, valid_ins, context))
+	if (llist_for_each(transaction->inputs, valid_ins, &context))
 		return (0);
 
-	llist_for_each(transaction->outputs, get_out_amount, context);
-	if (context->balance != context->needed)
+	llist_for_each(transaction->outputs, get_out_amount, &context);
+	if (context.balance != context.needed)
 		return (0);
 
-	free(context);
 	return (1);
 }
 
@@ -57,8 +55,6 @@ int valid_ins(llist_node_t in, unsigned int iter, void *context)
 	llist_node_t *match;
 	EC_KEY *key;
 
-	if (!in)
-		return (1);
 	match = llist_find_node(LUNSPENT, check_hash_match, in);
 	if (!match)
 		return (1);
