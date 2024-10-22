@@ -63,7 +63,7 @@ int valid_ins(llist_node_t in, unsigned int iter, void *context)
 		return (1);
 	if (!ec_verify(key, TX_ID, SHA256_DIGEST_LENGTH, &IN_SIG))
 		return (EC_KEY_free(key), 1);
-	((tc_t *)context)->balance += ((uto_t *)match)->out.amount;
+	((tc_t *)context)->balance += (int)((uto_t *)match)->out.amount;
 	EC_KEY_free(key);
 	return (0);
 }
@@ -94,6 +94,6 @@ int get_out_amount(llist_node_t out, unsigned int iter, void *context)
 {
 	(void)iter;
 
-	((tc_t *)context)->needed += ((to_t *)out)->amount;
+	((tc_t *)context)->needed += (int)((to_t *)out)->amount;
 	return (0);
 }
