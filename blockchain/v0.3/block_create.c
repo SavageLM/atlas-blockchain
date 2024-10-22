@@ -7,8 +7,8 @@
  * @data_len: Number of bytes to copy
  * Return: Pointer to new block or NULL
  */
-block_t *block_create(block_t const *prev, int8_t const *data,
-					  uint32_t data_len)
+block_t *block_create(
+	block_t const *prev, int8_t const *data, uint32_t data_len)
 {
 	block_t *new_block = NULL;
 	block_info_t info;
