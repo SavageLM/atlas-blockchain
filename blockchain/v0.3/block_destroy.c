@@ -1,5 +1,7 @@
 #include "blockchain.h"
 
+int tx_free(llist_node_t tx, unsigned int iter, void *args);
+
 /**
  * block_destroy - Destroys provided block
  * @block: block to destroy
@@ -24,4 +26,5 @@ int tx_free(llist_node_t tx, unsigned int iter, void *args)
 	(void)iter;
 	(void)args;
 	transaction_destroy((transaction_t *)tx);
+	return(0);
 }
