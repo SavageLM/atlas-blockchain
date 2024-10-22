@@ -14,6 +14,7 @@ block_t *block_create(block_t const *prev, int8_t const *data,
 	block_info_t info;
 	block_data_t new_data = {{0}, 0};
 	uint32_t len = data_len;
+	llist_t *new_tx;
 
 	new_block = malloc(sizeof(block_t));
 	if (!new_block)
@@ -30,5 +31,7 @@ block_t *block_create(block_t const *prev, int8_t const *data,
 
 	memset(new_block->hash, 0, 32);
 	new_block->data = new_data, new_block->info = info;
+	new_tx = llist_create(MT_SUPPORT_FALSE);
+	new_block->transactions = new_tx;
 	return (new_block);
 }
