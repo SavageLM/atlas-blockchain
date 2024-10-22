@@ -1,6 +1,8 @@
 #include "transaction.h"
 
-#define OUT_HASH (((ti_t *)in)->tx_out_hash)
+#define IN_HASH (((ti_t *)in)->tx_out_hash)
+#define IN_BLOCK (((ti_t *)in)->block_hash)
+#define IN_ID (((ti_t *)in)->tx_id)
 #define TX_ID (((tc_t *)context)->tx->id)
 #define LUNSPENT (((tc_t *)context)->all_unspent)
 #define IN_SIG (((ti_t *)in)->sig)
@@ -56,7 +58,7 @@ int valid_ins(llist_node_t in, unsigned int iter, void *context)
 
 	if (!in)
 		return (1);
-	match = llist_find_node(LUNSPENT, check_hash_match, OUT_HASH);
+	match = llist_find_node(LUNSPENT, check_hash_match, in);
 	if (!match)
 		return (1);
 	key = ec_from_pub(MATCH->out.pub);
@@ -71,14 +73,18 @@ int valid_ins(llist_node_t in, unsigned int iter, void *context)
 /**
  * check_hash_match - checks the unspent nodes for a matching hash
  * @unspent: unspent tx_out node
- * @hash: hash to compare
+ * @in: input tx
  * Return: 1 on match, else 0
  */
-int check_hash_match(llist_node_t unspent, void *hash)
+int check_hash_match(llist_node_t unspent, void *in)
 {
 	if (!unspent)
 		return (0);
-	if (!memcmp(UNSPENT->out.hash, hash, SHA256_DIGEST_LENGTH))
+	if (!memcmp(UNSPENT->out.hash, IN_HASH, SHA256_DIGEST_LENGTH))
+		return (1);
+	if (!memcmp(UNSPENT->block_hash, IN_BLOCK, SHA256_DIGEST_LENGTH))
+		return (1);
+	if (!memcmp(UNSPENT->tx_id, IN_ID, SHA256_DIGEST_LENGTH))
 		return (1);
 	return (0);
 }
