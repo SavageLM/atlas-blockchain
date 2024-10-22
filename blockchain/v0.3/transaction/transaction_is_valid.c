@@ -40,6 +40,7 @@ int transaction_is_valid(
 	if (context->balance != context->needed)
 		return (0);
 
+	free(context);
 	return (1);
 }
 
@@ -65,8 +66,9 @@ int valid_ins(llist_node_t in, unsigned int iter, void *context)
 	if (!key)
 		return (1);
 	if (!ec_verify(key, TX_ID, SHA256_DIGEST_LENGTH, &IN_SIG))
-		return (1);
+		return (EC_KEY_free(key), 1);
 	((tc_t *)context)->balance += ((uto_t *)match)->out.amount;
+	EC_KEY_free(key);
 	return (0);
 }
 
@@ -95,9 +97,6 @@ int check_hash_match(llist_node_t unspent, void *in)
 int get_out_amount(llist_node_t out, unsigned int iter, void *context)
 {
 	(void)iter;
-
-	if (!out)
-		return (1);
 
 	((tc_t *)context)->needed += ((to_t *)out)->amount;
 	return (0);
