@@ -14,21 +14,18 @@ sig_t *tx_in_sign(
 	ti_t *in, uint8_t const tx_id[SHA256_DIGEST_LENGTH], EC_KEY const *sender,
 	llist_t *all_unspent)
 {
-	uint8_t pub_key[EC_PUB_LEN];
-	uto_t *tx_out;
+	uint8_t pub_key[EC_PUB_LEN] = {0};
+	uto_t *tx_out = NULL;
 
 	if (!in || !tx_id || !sender || !all_unspent)
-		return (NULL);
-	ec_to_pub(sender, pub_key);
-	if (pub_key == NULL)
 		return (NULL);
 	tx_out = llist_find_node(all_unspent, check_hash, in->tx_out_hash);
 	if (!tx_out)
 		return (NULL);
-	if (!memcmp(pub_key, tx_out->out.pub, EC_PUB_LEN))
-		ec_sign(sender, tx_id, SHA256_DIGEST_LENGTH, &in->sig);
-	else
+	ec_to_pub(sender, pub_key);
+	if (memcmp(pub_key, tx_out->out.pub, EC_PUB_LEN))
 		return (NULL);
+	ec_sign(sender, tx_id, SHA256_DIGEST_LENGTH, &in->sig);
 	return (&in->sig);
 }
 

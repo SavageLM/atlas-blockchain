@@ -39,10 +39,9 @@ int hash_in(llist_node_t input, unsigned int iter, void *buff)
 {
 	unsigned int pos = iter * (32 * 3);
 
-	if (!input)
-		return (1);
-	memcpy(&((uint8_t *)buff)[pos], input, 96);
-	return (0);
+	if (memcpy(&((uint8_t *)buff)[pos], input, 96))
+		return (0);
+	return (1);
 }
 
 /**
@@ -56,8 +55,7 @@ int hash_out(llist_node_t output, unsigned int iter, void *buff)
 {
 	unsigned int pos = iter * 32;
 
-	if (!output)
-		return (1);
-	memcpy(&((uint8_t *)buff)[pos], (uint8_t *)output + PTR_MOVE, 32);
-	return (0);
+	if (memcpy(&((uint8_t *)buff)[pos], (uint8_t *)output + PTR_MOVE, 32))
+		return (0);
+	return (1);
 }
