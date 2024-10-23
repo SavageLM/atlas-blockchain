@@ -42,13 +42,13 @@ int block_is_valid(
 	if (!hash_matches_difficulty(block->hash, block->info.difficulty))
 		return (1);
 	if (llist_size(block->transactions) < 1)
-		return (puts("size"), 1);
+		return (1);
 	if (!coinbase_is_valid(
 		(transaction_t *)llist_get_head(block->transactions),
 		block->info.index))
-		return (puts("coinbase"), 1);
+		return (1);
 	if (llist_for_each(block->transactions, (node_func_t)&valid_tx, all_unspent))
-		return (puts("valid_tx"), 1);
+		return (1);
 	return (0);
 }
 
@@ -76,9 +76,7 @@ int is_genesis(block_t const *block)
  */
 int valid_tx(transaction_t *tx, unsigned int iter, llist_t *unspent)
 {
-	(void)iter;
-
-	if (!transaction_is_valid(tx, unspent))
+	if (iter && !transaction_is_valid(tx, unspent))
 		return (1);
 	return (0);
 }
