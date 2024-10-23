@@ -26,7 +26,7 @@ transaction_t *transaction_create(
 	tx = calloc(1, sizeof(transaction_t));
 	if (!tx)
 		return (NULL);
-	context->tx = tx;
+	context->tx = tx, context->all_unspent = all_unspent;
 	ec_to_pub(sender, pub_key);
 	if (pub_key == NULL)
 		return (free(tx), NULL);
