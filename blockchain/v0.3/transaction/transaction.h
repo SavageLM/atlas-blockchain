@@ -110,6 +110,21 @@ typedef struct tx_context_s
 	llist_t       *all_unspent;
 } tc_t;
 
+/**
+ * struct tx_valid - HOlds info for validating a transaction
+ * @input: input amounts
+ * @output: output amounts
+ * @tx_id: transaction id
+ * @unspent: list of uto_t
+ */
+typedef struct tx_valid_s
+{
+	uint32_t   input;
+	uint32_t   output;
+	uint8_t    tx_id[SHA256_DIGEST_LENGTH];
+	llist_t    *unspent;
+} tv_t;
+
 /* Prototypes */
 
 to_t *tx_out_create(

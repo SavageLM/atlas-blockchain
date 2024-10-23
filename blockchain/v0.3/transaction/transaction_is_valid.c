@@ -1,8 +1,8 @@
 #include "transaction.h"
 
 int check_hash_match(uto_t *unspent, tx_in_t *in);
-int valid_ins(tx_in_t *in, uint32_t iter, tc_t *context);
-int get_out_amount(tx_out_t *out, unsigned int iter, tc_t *context);
+int valid_ins(tx_in_t *in, uint32_t iter, tv_t *context);
+int get_out_amount(tx_out_t *out, unsigned int iter, tv_t *context);
 
 /**
  * transaction_is_valid - Checks if a transaction is valid
@@ -14,18 +14,19 @@ int transaction_is_valid(
 	transaction_t const *transaction, llist_t *all_unspent)
 {
 	uint8_t v_hash[SHA256_DIGEST_LENGTH];
-	tc_t context = {0};
+	tv_t context = {0};
 
 	if (!transaction || !all_unspent)
 		return (puts("L"), 0);
-	context.tx = (void *)transaction, context.all_unspent = all_unspent;
+	memcpy(context.tx_id, transaction->id, SHA256_DIGEST_LENGTH);
+	context.unspent = all_unspent;
 	transaction_hash(transaction, v_hash);
 	if (memcmp(v_hash, transaction->id, SHA256_DIGEST_LENGTH))
 		return (puts("O"), 0);
 	if (llist_for_each(transaction->inputs, (node_func_t)&valid_ins, &context))
 		return (puts("G"), 0);
 	llist_for_each(transaction->outputs, (node_func_t)&get_out_amount, &context);
-	if (context.balance != context.needed)
+	if (context.input != context.output)
 		return (puts("A"), 0);
 	return (1);
 }
@@ -37,21 +38,21 @@ int transaction_is_valid(
  * @context: struct holding tx and unspent list
  * Return: 0 on match, 1 on fail
  */
-int valid_ins(tx_in_t *in, uint32_t iter, tc_t *context)
+int valid_ins(tx_in_t *in, uint32_t iter, tv_t *context)
 {
 	(void)iter;
 	uto_t *match = NULL;
 	EC_KEY *key = NULL;
 
-	match = llist_find_node(context->all_unspent,
+	match = llist_find_node(context->unspent,
 		(node_ident_t)&check_hash_match, in);
 	if (!match)
 		return (puts("N"), 1);
-	context->balance += (int)match->out.amount;
+	context->input += (int)match->out.amount;
 	key = ec_from_pub(match->out.pub);
 	if (!key)
 		return (puts("S"), 1);
-	if (!ec_verify(key, context->tx->id, SHA256_DIGEST_LENGTH, &in->sig))
+	if (!ec_verify(key, context->tx_id, SHA256_DIGEST_LENGTH, &in->sig))
 		return (EC_KEY_free(key), puts("SAVAGE"), 1);
 	EC_KEY_free(key);
 	return (0);
@@ -79,9 +80,9 @@ int check_hash_match(uto_t *unspent, tx_in_t *in)
  * @context: struct holding tx and unspent list
  * Return: 0 on match, 1 on fail
  */
-int get_out_amount(tx_out_t *out, unsigned int iter, tc_t *context)
+int get_out_amount(tx_out_t *out, unsigned int iter, tv_t *context)
 {
 	(void)iter;
-	context->needed += (int)out->amount;
+	context->output += out->amount;
 	return (0);
 }
