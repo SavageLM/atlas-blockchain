@@ -2,7 +2,7 @@
 
 #define BDL block->data.len
 
-int tx_id_cpy(llist_node_t tx, int iter, void *buffer);
+int tx_id_cpy(llist_node_t tx, unsigned int iter, void *buffer);
 
 /**
  * block_hash - hashes a block using sha256
@@ -39,7 +39,7 @@ uint8_t *block_hash(block_t const *block,
  * @buffer: Buffer to copy into
  * Return: 1 on Fail, otherwise 0
  */
-int tx_id_cpy(llist_node_t tx, int iter, void *buffer)
+int tx_id_cpy(llist_node_t tx, unsigned int iter, void *buffer)
 {
 	memcpy(
 		(uint8_t *)buffer + iter * SHA224_DIGEST_LENGTH,
