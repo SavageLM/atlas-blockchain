@@ -48,7 +48,7 @@ int valid_ins(tx_in_t *in, uint32_t iter, tv_t *context)
 		(node_ident_t)&check_hash_match, in);
 	if (!match)
 		return (puts("N"), 1);
-	context->input += (int)match->out.amount;
+	context->input += match->out.amount;
 	key = ec_from_pub(match->out.pub);
 	if (!key)
 		return (puts("S"), 1);

@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "ecdsa.h": "c",
-        "ec.h": "c"
+        "ec.h": "c",
+        "blockchain.h": "c"
     }
 }
