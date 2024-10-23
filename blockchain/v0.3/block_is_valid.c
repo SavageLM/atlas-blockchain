@@ -1,6 +1,7 @@
 #include "blockchain.h"
 
 int is_genesis(block_t const *block);
+int valid_tx(llist_node_t tx, unsigned int iter, void *unspent);
 
 /**
  * block_is_valid - function to validate a block
