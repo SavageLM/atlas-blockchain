@@ -43,7 +43,7 @@ uint8_t *block_hash(block_t const *block,
 int tx_id_cpy(llist_node_t tx, unsigned int iter, void *buffer)
 {
 	memcpy(
-		(uint8_t *)buffer + iter * SHA224_DIGEST_LENGTH,
-		((transaction_t *)tx)->id, SHA224_DIGEST_LENGTH);
+		(uint8_t *)buffer + iter * SHA256_DIGEST_LENGTH,
+		((transaction_t *)tx)->id, SHA256_DIGEST_LENGTH);
 	return (0);
 }
