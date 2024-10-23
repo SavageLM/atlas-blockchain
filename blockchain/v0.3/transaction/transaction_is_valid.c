@@ -17,17 +17,17 @@ int transaction_is_valid(
 	tv_t context = {0};
 
 	if (!transaction || !all_unspent)
-		return (puts("L"), 0);
+		return (0);
 	memcpy(context.tx_id, transaction->id, SHA256_DIGEST_LENGTH);
 	context.unspent = all_unspent;
 	transaction_hash(transaction, v_hash);
 	if (memcmp(v_hash, transaction->id, SHA256_DIGEST_LENGTH))
-		return (puts("O"), 0);
+		return (0);
 	if (llist_for_each(transaction->inputs, (node_func_t)&valid_ins, &context))
-		return (puts("G"), 0);
+		return (0);
 	llist_for_each(transaction->outputs, (node_func_t)&get_out_amount, &context);
 	if (context.input != context.output)
-		return (puts("A"), 0);
+		return (0);
 	return (1);
 }
 
@@ -47,13 +47,13 @@ int valid_ins(tx_in_t *in, uint32_t iter, tv_t *context)
 	match = llist_find_node(context->unspent,
 		(node_ident_t)&check_hash_match, in);
 	if (!match)
-		return (puts("N"), 1);
+		return (1);
 	context->input += match->out.amount;
 	key = ec_from_pub(match->out.pub);
 	if (!key)
-		return (puts("S"), 1);
+		return (1);
 	if (!ec_verify(key, context->tx_id, SHA256_DIGEST_LENGTH, &in->sig))
-		return (EC_KEY_free(key), puts("SAVAGE"), 1);
+		return (EC_KEY_free(key), 1);
 	EC_KEY_free(key);
 	return (0);
 }
