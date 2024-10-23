@@ -22,8 +22,8 @@ uint8_t *block_hash(block_t const *block,
 	if (block->transactions)
 		num_tx = llist_size(block->transactions);
 
-	buff_len = sizeof(block->info) + BDL + (num_tx *SHA256_DIGEST_LENGTH);
-	buffer = calloc(0, buff_len);
+	buff_len = sizeof(block->info) + BDL + (num_tx * SHA256_DIGEST_LENGTH);
+	buffer = calloc(1, buff_len);
 
 	memcpy(buffer, block, sizeof(block->info) + BDL);
 	llist_for_each(block->transactions, tx_id_cpy, buffer);
