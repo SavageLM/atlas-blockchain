@@ -61,7 +61,7 @@ int is_genesis(block_t const *block)
 {
 	block_t genesis = {
 		{0, 0, 1537578000, 0, {0}},
-		{"Holberton School", 16},
+		{"Holberton School", 16}, 0,
 		HOLBERTON_HASH};
 
 	return (memcmp(&genesis, block, 1116));
@@ -76,6 +76,8 @@ int is_genesis(block_t const *block)
  */
 int valid_tx(llist_node_t tx, unsigned int iter, void *unspent)
 {
+	(void)iter;
+
 	if (!transaction_is_valid((transaction_t *)tx, (llist_t *)unspent))
 		return (1);
 	return (0);
