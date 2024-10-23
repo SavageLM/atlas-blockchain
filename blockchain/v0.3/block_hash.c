@@ -2,6 +2,8 @@
 
 #define BDL block->data.len
 
+int tx_id_cpy(llist_node_t tx, int iter, void *buffer);
+
 /**
  * block_hash - hashes a block using sha256
  * @block: block to hash
