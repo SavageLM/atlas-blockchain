@@ -92,7 +92,7 @@ typedef struct unspent_tx_out_s
 } unspent_tx_out_t, uto_t;
 
 /**
- * struct tx_balance - Tracks the balance available to a private key
+ * struct tx_context_s - Tracks the balance available to a private key
  * @pub: public key used to match to a private
  * @balance: total amount available to a key
  * @needed: amount needed to send
@@ -111,7 +111,7 @@ typedef struct tx_context_s
 } tc_t;
 
 /**
- * struct tx_valid - HOlds info for validating a transaction
+ * struct tx_valid_s - HOlds info for validating a transaction
  * @input: input amounts
  * @output: output amounts
  * @tx_id: transaction id
@@ -124,6 +124,19 @@ typedef struct tx_valid_s
 	uint8_t    tx_id[SHA256_DIGEST_LENGTH];
 	llist_t    *unspent;
 } tv_t;
+
+/**
+ * struct update_list_s - HOlds info for updating unspent
+ * @hash: hash of block holding tx
+ * @unspent: list of uto_t
+ * @tx_id: transaction ID
+ */
+typedef struct update_list_s
+{
+	uint8_t    hash[SHA256_DIGEST_LENGTH];
+	llist_t    *unspent;
+	uint8_t    tx_id[SHA256_DIGEST_LENGTH];
+} ul_t;
 
 /* Prototypes */
 
