@@ -5,8 +5,8 @@ LDFLAGS := -L../../crypto
 LDLIBS := -lhblk_crypto -lllist -lssl -lcrypto
 
 libhblk_blockchain.a:
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS)*.c
-	ar -rc libhblk_blockchain.a *.o
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS) *.c transaction/*.c
+	ar -rcs libhblk_blockchain.a *.o
 
 clean:
 	rm -rf *.o
