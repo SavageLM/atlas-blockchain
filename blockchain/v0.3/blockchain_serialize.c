@@ -4,6 +4,7 @@ int write_blocks(block_t *block, unsigned int index, FILE *fptr);
 int write_tx(transaction_t *tx, unsigned int index, FILE *fptr);
 int write_ins(ti_t *in, unsigned int index, FILE *fptr);
 int write_outs(to_t *out, unsigned int index, FILE *fptr);
+int write_unspent(uto_t *unspent, unsigned int index, FILE *fptr);
 
 
 /**
@@ -15,15 +16,16 @@ int write_outs(to_t *out, unsigned int index, FILE *fptr);
 int blockchain_serialize(blockchain_t const *blockchain, char const *path)
 {
 	FILE *fptr = NULL;
-	int blocknums = 0;
+	int blocknums = 0, unspent_nums = 0;
 	char header[16] = {FHEADER};
 
 	if (!blockchain || !path)
 		return (0);
 	blocknums = llist_size(blockchain->chain);
+	unspent_nums = llist_size(blockchain->unspent);
 	memcpy(&header[7], END, 1);
 	memcpy(&header[8], &blocknums, 4);
-	memcpy(&header[12], llist_size(blockchain->unspent), 4);
+	memcpy(&header[12], &unspent_nums, 4);
 	fptr = fopen(path, "w");
 	fwrite(header, 1, 16, fptr);
 	llist_for_each(blockchain->chain, (node_func_t)&write_blocks, fptr);

@@ -1,5 +1,10 @@
 #include "blockchain.h"
 
+int read_tx(FILE *fptr, uint32_t tx_num, llist_t *tx_list);
+int read_inputs(FILE *fptr, uint32_t num_in, llist_t *tx_in);
+int read_outputs(FILE *fptr, uint32_t num_out, llist_t *tx_out);
+int read_unspent(FILE *fptr, blockchain_t *chain, uint32_t unspent_num);
+
 /**
  * blockchain_deserialize - Loads a blockchain from file
  * @path: file to read from
