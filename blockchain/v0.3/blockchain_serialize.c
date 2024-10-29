@@ -75,6 +75,7 @@ int write_blocks(block_t *block, unsigned int index, FILE *fptr)
  */
 int write_tx(transaction_t *tx, unsigned int index, FILE *fptr)
 {
+	(void)index;
 	char tx_buff[40];
 	int ins = 0, outs = 0;
 
@@ -106,7 +107,7 @@ int write_ins(ti_t *in, unsigned int index, FILE *fptr)
 	memcpy(&in_buff[32], in->tx_id, 32);
 	memcpy(&in_buff[64], in->tx_out_hash, 32);
 	memcpy(&in_buff[96], in->sig.sig, 72);
-	memcpy(&in_buff[168], in->sig.len, 1);
+	memcpy(&in_buff[168], &in->sig.len, 1);
 	fwrite(&in_buff, 1, 169, fptr);
 	return (0);
 }
@@ -123,7 +124,7 @@ int write_outs(to_t *out, unsigned int index, FILE *fptr)
 	(void)index;
 	char out_buff[101];
 
-	memcpy(&out_buff[0], out->amount, 4);
+	memcpy(&out_buff[0], &out->amount, 4);
 	memcpy(&out_buff[4], out->pub, 65);
 	memcpy(&out_buff[69], out->hash, 32);
 	fwrite(&out_buff, 1, 101, fptr);
@@ -142,11 +143,11 @@ int write_unspent(uto_t *unspent, unsigned int index, FILE *fptr)
 	(void)index;
 	char unspent_buff[165];
 
-	memcpy(unspent_buff[0], unspent->block_hash, 32);
-	memcpy(unspent_buff[32], unspent->tx_id, 32);
-	memcpy(unspent_buff[64], unspent->out.amount, 4);
-	memcpy(unspent_buff[68], unspent->out.pub, 65);
-	memcpy(unspent_buff[133], unspent->out.hash, 32);
-	fwrite(unspent_buff, 1, 165, fptr);
+	memcpy(&unspent_buff[0], unspent->block_hash, 32);
+	memcpy(&unspent_buff[32], unspent->tx_id, 32);
+	memcpy(&unspent_buff[64], unspent->out.amount, 4);
+	memcpy(&unspent_buff[68], unspent->out.pub, 65);
+	memcpy(&unspent_buff[133], unspent->out.hash, 32);
+	fwrite(&unspent_buff, 1, 165, fptr);
 	return (0);
 }
