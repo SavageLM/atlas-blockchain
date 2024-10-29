@@ -14,9 +14,8 @@ block_t *block_create(
 	block_info_t info;
 	block_data_t new_data = {{0}, 0};
 	uint32_t len = data_len;
-	llist_t *new_tx;
 
-	new_block = malloc(sizeof(block_t));
+	new_block = calloc(1, sizeof(block_t));
 	if (!new_block)
 		return (NULL);
 	if (data_len > BLOCKCHAIN_DATA_MAX)
@@ -29,9 +28,7 @@ block_t *block_create(
 	memcpy(info.prev_hash, prev->hash, 32);
 	info.timestamp = time(NULL);
 
-	memset(new_block->hash, 0, 32);
 	new_block->data = new_data, new_block->info = info;
-	new_tx = llist_create(MT_SUPPORT_FALSE);
-	new_block->transactions = new_tx;
+	new_block->transactions = llist_create(MT_SUPPORT_FALSE);
 	return (new_block);
 }
