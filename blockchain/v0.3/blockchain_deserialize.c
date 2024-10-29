@@ -37,8 +37,8 @@ blockchain_t *blockchain_deserialize(char const *path)
 		block = calloc(1, sizeof(block_t));
 		fread(&block->info, 1, sizeof(block_info_t), fptr);
 		fread(&(block->data.len), sizeof(uint8_t), 4, fptr);
-		fread(&block->data.buffer, sizeof(uint8_t), block->data.len, fptr);
-		fread(&block->hash, sizeof(uint8_t), SHA256_DIGEST_LENGTH, fptr);
+		fread(block->data.buffer, block->data.len, sizeof(uint8_t), fptr);
+		fread(block->hash, sizeof(uint8_t), SHA256_DIGEST_LENGTH, fptr);
 		fread(&tx_num, 4, 1, fptr);
 		if ((int)tx_num != -1)
 		{
