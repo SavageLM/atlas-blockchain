@@ -40,7 +40,7 @@ blockchain_t *blockchain_deserialize(char const *path)
 		fread(&block->data.buffer, sizeof(uint8_t), block->data.len, fptr);
 		fread(&block->hash, sizeof(uint8_t), SHA256_DIGEST_LENGTH, fptr);
 		fread(&tx_num, 4, 1, fptr);
-		if (tx_num != -1)
+		if ((int)tx_num != -1)
 		{
 			block->transactions = llist_create(MT_SUPPORT_FALSE);
 			read_tx(fptr, tx_num, block->transactions);

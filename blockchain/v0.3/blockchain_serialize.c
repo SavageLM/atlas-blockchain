@@ -145,7 +145,7 @@ int write_unspent(uto_t *unspent, unsigned int index, FILE *fptr)
 
 	memcpy(&unspent_buff[0], unspent->block_hash, 32);
 	memcpy(&unspent_buff[32], unspent->tx_id, 32);
-	memcpy(&unspent_buff[64], unspent->out.amount, 4);
+	memcpy(&unspent_buff[64], &unspent->out.amount, 4);
 	memcpy(&unspent_buff[68], unspent->out.pub, 65);
 	memcpy(&unspent_buff[133], unspent->out.hash, 32);
 	fwrite(&unspent_buff, 1, 165, fptr);
